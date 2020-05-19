@@ -4,6 +4,12 @@ class Department:
     def __init__(self, name, code):
         self.name = name
         self.code = code
+    
+    def get_department(self, name):
+        return self.name
+    
+    def set_department(self):
+        return 0
 
 
 class Employee:
@@ -16,7 +22,7 @@ class Employee:
         pass
 
     def get_hours(self):
-        pass
+        return 8
 
 
 class Manager(Employee):
@@ -36,3 +42,9 @@ class Seller(Manager): # class Seller(Employee)
 
     def get_hours(self):
         return 6
+
+    def get_sales(self):
+        return 0
+
+    def put_sales(self):
+        return 1
