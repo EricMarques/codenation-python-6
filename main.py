@@ -28,7 +28,7 @@ class Manager(Employee):
         return self.salary * 0.15
 
 
-class Seller(Manager):
+class Seller(Manager): # class Seller(Employee)
     def __init__(self, code, name, salary):
         super().__init__(code, name, salary)
         self.departament = Department('sellers', 2)
