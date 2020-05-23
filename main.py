@@ -1,50 +1,62 @@
-
+from abc import ABCMeta, abstractmethod
 
 class Department:
     def __init__(self, name, code):
         self.name = name
         self.code = code
-    
-    def get_department(self, name):
-        return self.name
-    
-    def set_department(self):
-        return 0
 
 
-class Employee:
-    def __init__(self, code, name, salary):
+class Employee(metaclass=ABCMeta):
+    work_hours = 8
+
+    @abstractmethod
+    def __init__(self, code, name, salary, department):
         self.code = code
         self.name = name
-        self.salary = salary
+        self.__salary = salary
+        self.__department = department
 
+    @abstractmethod
     def calc_bonus(self):
-        pass
+        return self.salary * 0.15
 
-    def get_hours(self):
-        return 8
+    @classmethod
+    def get_hours(cls):
+        return cls.work_hours
+
+    @property
+    def salary(self):
+        return self.__salary
+
+    @salary.setter
+    def salary(self, salary):
+        self.__salary = salary
+
+    def get_department(self):
+        return self.__department.name
+
+    def set_department(self, department):
+        self.__department.name = department
 
 
 class Manager(Employee):
     def __init__(self, code, name, salary):
-        super().__init__(code, name, salary)
-        self.departament = Department('managers', 1)
+        super().__init__(code, name, salary, Department('managers', 1))
 
     def calc_bonus(self):
         return self.salary * 0.15
 
 
-class Seller(Manager): # class Seller(Employee)
+class Seller(Employee):
     def __init__(self, code, name, salary):
-        super().__init__(code, name, salary)
-        self.departament = Department('sellers', 2)
-        self.sales = 0
+        super().__init__(code, name, salary, Department('sellers', 2))
+        self.__sales = 0
 
-    def get_hours(self):
-        return 6
+    def calc_bonus(self):
+        return self.__sales * 0.15
 
     def get_sales(self):
-        return 0
+        return self.__sales
 
-    def put_sales(self):
-        return 1
+    def put_sales(self, sales):
+        self.__sales += sales
